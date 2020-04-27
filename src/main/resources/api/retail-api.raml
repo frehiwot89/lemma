@@ -1,0 +1,197 @@
+#%RAML 1.0
+baseUri: https://anypoint.mulesoft.com/mocking/api/v1/links/b513bb66-6ede-47ed-94a8-5d0a233877ed/ # 
+
+title: Retail API
+
+documentation:
+  - !include Document/documentation.raml
+
+traits:
+  Collections:
+
+types:
+  Bill: !include Datatype/Bill.raml
+  ProductCatagory: !include Datatype/Productcatagory.raml
+  Products: !include Datatype/Products.raml
+ 
+
+
+/Products:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            type: Products []
+            examples: !include Examples/Products.raml
+              
+    is:
+      - Collections:
+        
+      
+  post:
+  
+    responses:
+      201:
+        body:
+          application/json:
+            example:
+              "new product created "
+      401:
+        body:
+          application/json:
+            examples: !include Examples/Unauthorized.raml
+              
+                               
+            
+      
+    
+  /{id}:
+    get:
+      
+      responses:
+       200:
+        body:
+          application/json:
+            type: Products
+            examples: !include Examples/Product.raml
+              
+      is:
+        - Collections:
+          
+    put:        
+      responses: 
+       200:
+         body:
+            application/json:
+              example: "The Product is updated"
+                
+                
+                
+    delete:
+      responses:
+        201:
+          body:
+            application/json:
+              example: 
+               "deleted product which is not associated with bill"
+                
+        401:
+          body:
+            application/json:
+              examples: !include Examples/Unauthorized.raml
+                
+                
+/Bills:
+  get: 
+    responses:
+      200:
+        body:
+          application/json:
+           type: Bill []
+           examples: !include Examples/Bills.raml
+
+    is:
+      - Collections:
+                 
+              
+  post:
+    responses:  
+     201:
+        body:
+          application/json:
+            example:
+              "new bill created "
+
+     401:
+        body:
+          application/json:
+            examples: !include Examples/Unauthorized.raml
+              
+  /{id}:
+    get:
+      responses:
+       200:
+        body:
+          application/json:
+            type: Bill
+            examples: !include Examples/Bill.raml
+              
+      is:
+        - Collections:
+          
+              
+    put:
+      responses:
+       200:
+         body:
+            application/json:
+              example: "the Bill is updated"
+                
+
+       
+    delete:
+      responses: 
+        201:
+         body:
+          application/json:
+            example:
+              "bill deleted from the server"
+      
+/productCatagory:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            type: ProductCatagory []
+            examples: !include Examples/productcatagories.raml
+              
+    is:
+      - Collections:
+        
+
+  post:
+    responses:
+      201:
+        body:
+          application/json:
+            example:
+              "new productCatagory created "
+    
+  /{id}:
+    get:
+      responses:
+       200:
+        body:
+          application/json:
+            type: ProductCatagory
+            examples: !include Examples/Productcatagory.raml
+      
+      is:
+        - Collections:
+          
+    put:
+      responses: 
+       200:
+         body:
+            application/json:
+              example: 
+                "the productcatagory is updated"
+                
+
+       
+                
+        
+    delete:
+      responses: 
+        201:
+         body:
+          application/json:
+            example:
+              "existing productcatagory deleted"
+      
+        
+      
+
+
